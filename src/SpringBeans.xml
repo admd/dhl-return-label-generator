@@ -1,0 +1,56 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/web-services 
+      http://www.springframework.org/schema/web-services/web-services-2.0.xsd">
+   
+   <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+   
+   <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="org.helpers.dhl.generated" />
+    </bean>
+   <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+        <constructor-arg ref="messageFactory" />
+        <property name="marshaller" ref="marshaller"></property>
+        <property name="unmarshaller" ref="marshaller"></property>
+        <property name="messageSender">
+            <bean
+                class="org.springframework.ws.transport.http.HttpComponentsMessageSender" />
+        </property>
+        <property name="defaultUri"
+            value="https://amsel.dpwn.net/abholportal/gw/lp/SoapConnector" />
+        <property name="interceptors">
+           <list>
+           	  <ref bean="wsSecurityInterceptor" />
+          </list>
+    	</property>   
+    </bean>
+	<bean id="dhlServiceClient" class="org.helpers.dhl.DHLServiceClient" >
+		<property name="webServiceTemplate"
+            ref="webServiceTemplate" />
+     </bean>  
+     <bean id="wsSecurityInterceptor" class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
+    	<property name="securementActions" value="UsernameToken"/>
+    	<property name="securementUsername" value="ws_online_retoure"/>
+    	<property name="securementPassword" value="Anfang1!"/>
+    	<property name="securementPasswordType" value ="PasswordText"/>
+	</bean>
+<!-- 	<bean id="wsServerSecurityInterceptor"
+        class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
+        <property name="validationActions" value="UsernameToken" />
+        <property name="validationCallbackHandler">
+            <bean id="callbackHandler"
+                class="org.springframework.ws.soap.security.wss4j.callback.SimplePasswordValidationCallbackHandler">
+                <property name="users">
+                    <props>
+                        <prop key="Bert">>ws_online_retoure</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+    </bean> -->
+	
+    
+</beans>
