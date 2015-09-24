@@ -33,8 +33,8 @@
      </bean>  
      <bean id="wsSecurityInterceptor" class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
     	<property name="securementActions" value="UsernameToken"/>
-    	<property name="securementUsername" value="ws_online_retoure"/>
-    	<property name="securementPassword" value="Anfang1!"/>
+    	<property name="securementUsername" value="username"/>
+    	<property name="securementPassword" value="password"/>
     	<property name="securementPasswordType" value ="PasswordText"/>
 	</bean>
 <!-- 	<bean id="wsServerSecurityInterceptor"
