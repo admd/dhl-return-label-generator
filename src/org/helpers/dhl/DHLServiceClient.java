@@ -29,12 +29,12 @@ public class DHLServiceClient {
     	BookLabelResponseType response = WS_CLIENT_FACTORY
                 .createBookLabelResponseType();
     	request.setPortalId("OnlineRetoure");
-    	request.setDeliveryName("Spanien_Var3");
-    	request.setShipmentReference("ShipRef Nextt");
+    	request.setDeliveryName("delivername");
+    	request.setShipmentReference("ShipRef");
     	request.setCustomerReference("1.Feld via Webservice");
     	request.setLabelFormat("PDF");
-    	request.setSenderName1("Willi Webservice");
-    	request.setSenderName2("via Webservice");
+    	request.setSenderName1("name1");
+    	request.setSenderName2("name2");
     	request.setSenderCareOfName("careOfName");
     	request.setSenderContactPhone("0800 123456");
     	request.setSenderStreet("Webservice Street");
